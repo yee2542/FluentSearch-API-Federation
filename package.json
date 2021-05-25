@@ -2,7 +2,6 @@
   "name": "fluentsearch-api-federation",
   "version": "0.0.1",
   "description": "",
-  "main": "index.ts",
   "dependencies": {
     "@apollo/gateway": "^0.28.2",
     "apollo-server": "^2.24.1",
@@ -10,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "ts-node index.ts",
+    "dev": "ts-node src/index.ts",
     "build": "tsc --project tsconfig.json",
     "prod": "node ./dist/index.js"
   },
