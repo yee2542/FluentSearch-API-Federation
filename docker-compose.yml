@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+  api-federation:
+    container_name: FluentSearch-API-Federation
+    restart: always
+    environment:
+      NODE_ENV: "development"
+      TZ: Asia/Bangkok
+      ORIGIN: http(|s):\/\/localhost:4000
+      BFF_ENDPOINT: http://localhost:3000
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "4000:4000"
+    volumes:
+      - "./src:/src"
+    logging:
+      options:
+        max-size: 50m
