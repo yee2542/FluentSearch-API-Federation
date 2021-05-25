@@ -34,7 +34,6 @@ const server = new ApolloServer({
     credentials: true,
   },
   context: (ctx) => {
-    console.log(ctx.req.headers.cookie);
     return {
       ...ctx,
       cookie: ctx.req.headers.cookie,
