@@ -1,6 +1,11 @@
 import { ApolloServer } from "apollo-server";
-import { ApolloGateway } from "@apollo/gateway";
-import { buildServiceDefinition } from "@apollographql/apollo-tools";
+import { ApolloGateway, RemoteGraphQLDataSource } from "@apollo/gateway";
+
+class AuthenticatedDataSource extends RemoteGraphQLDataSource {
+  willSendRequest({ request, context }) {
+    request.http.headers.set("cookie", context.cookie);
+  }
+}
 
 const gateway = new ApolloGateway({
   serviceList: [
@@ -9,6 +14,9 @@ const gateway = new ApolloGateway({
       url: process.env.BFF_ENDPOINT || "http://localhost:5000/graphql",
     },
   ],
+  buildService: ({ url }) => {
+    return new AuthenticatedDataSource({ url });
+  },
 });
 
 const server = new ApolloServer({
@@ -25,11 +33,13 @@ const server = new ApolloServer({
     origin: new RegExp(process.env.ORIGIN || ".*"),
     credentials: true,
   },
-  context: ({ req, res, connection }) => ({
-    req,
-    res,
-    connection,
-  }),
+  context: (ctx) => {
+    console.log(ctx.req.headers.cookie);
+    return {
+      ...ctx,
+      cookie: ctx.req.headers.cookie,
+    };
+  },
 });
 
 server.listen().then(({ url }) => {
