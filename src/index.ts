@@ -1,16 +1,18 @@
-import { ApolloServer } from "apollo-server";
 import { ApolloGateway, RemoteGraphQLDataSource } from "@apollo/gateway";
-
+import { ApolloServer } from "apollo-server";
 class AuthenticatedDataSource extends RemoteGraphQLDataSource {
   willSendRequest({ request, context }) {
     request.http.headers.set("cookie", context.cookie);
   }
-
   didReceiveResponse({ response, request, context }) {
-    const cookie = request.http.headers.get("Cookie");
-    if (cookie) {
-      context.responseCookies.push(cookie);
+    const responseHeder = response.http.headers;
+    if (responseHeder.has("set-cookie")) {
+      // hotfix
+      const cookie = responseHeder.get("set-cookie");
+      const setCookies = cookie.split(",") as string[];
+      context.res.setHeader("set-cookie", setCookies);
     }
+
     return response;
   }
 }
@@ -42,12 +44,12 @@ const server = new ApolloServer({
     credentials: true,
   },
   context: (ctx) => {
-    const { req, res } = ctx;
+    const { req, res, connection } = ctx;
     return {
-      ...ctx,
       req,
       res,
       cookie: ctx.req.headers.cookie,
+      connection,
     };
   },
 });
