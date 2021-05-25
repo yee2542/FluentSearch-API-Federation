@@ -13,6 +13,12 @@ const gateway = new ApolloGateway({
 const server = new ApolloServer({
   gateway,
   subscriptions: false,
+  introspection: true,
+  playground: {
+    settings: {
+      "request.credentials": "include",
+    },
+  },
   cors: {
     origin: new RegExp(process.env.ORIGIN || ".*"),
     credentials: true,
