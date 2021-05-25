@@ -5,6 +5,14 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
   willSendRequest({ request, context }) {
     request.http.headers.set("cookie", context.cookie);
   }
+
+  didReceiveResponse({ response, request, context }) {
+    const cookie = request.http.headers.get("Cookie");
+    if (cookie) {
+      context.responseCookies.push(cookie);
+    }
+    return response;
+  }
 }
 
 const gateway = new ApolloGateway({
