@@ -10,7 +10,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "ts-node index.ts"
+    "dev": "ts-node index.ts",
+    "build": "tsc --project tsconfig.json",
+    "prod": "node ./dist/index.js"
   },
   "repository": {
     "type": "git",
