@@ -1,5 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import { ApolloGateway } from "@apollo/gateway";
+import { buildServiceDefinition } from "@apollographql/apollo-tools";
 
 const gateway = new ApolloGateway({
   serviceList: [
@@ -19,6 +20,7 @@ const server = new ApolloServer({
       "request.credentials": "include",
     },
   },
+  engine: { sendHeaders: { all: true } },
   cors: {
     origin: new RegExp(process.env.ORIGIN || ".*"),
     credentials: true,
