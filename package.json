@@ -1,7 +1,25 @@
 {
+  "name": "fluentsearch-api-federation",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.ts",
   "dependencies": {
     "@apollo/gateway": "^0.28.2",
     "apollo-server": "^2.24.1",
     "graphql": "^15.5.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yee2542/FluentSearch-API-Federation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yee2542/FluentSearch-API-Federation/issues"
+  },
+  "homepage": "https://github.com/yee2542/FluentSearch-API-Federation#readme"
 }
