@@ -4,7 +4,7 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
   willSendRequest({ request, context }) {
     request.http.headers.set("cookie", context.cookie);
   }
-  didReceiveResponse({ response, request, context }) {
+  didReceiveResponse({ response, context }) {
     const responseHeder = response.http.headers;
     if (responseHeder.has("set-cookie")) {
       // hotfix
@@ -22,6 +22,10 @@ const gateway = new ApolloGateway({
     {
       name: "bff",
       url: process.env.BFF_ENDPOINT || "http://localhost:5000/graphql",
+    },
+    {
+      name: "admission",
+      url: process.env.ADMISSION_ENDPOINT || "http://localhost:3000/graphql",
     },
   ],
   buildService: ({ url }) => {
