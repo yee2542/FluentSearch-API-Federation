@@ -23,6 +23,10 @@ const gateway = new ApolloGateway({
       name: "bff",
       url: process.env.BFF_ENDPOINT || "http://localhost:5000/graphql",
     },
+    {
+      name: "admission",
+      url: process.env.ADMISSION_ENDPOINT || "http://localhost:3000/graphql",
+    },
   ],
   buildService: ({ url }) => {
     return new AuthenticatedDataSource({ url });
