@@ -4,7 +4,7 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
   willSendRequest({ request, context }) {
     request.http.headers.set("cookie", context.cookie);
   }
-  didReceiveResponse({ response, request, context }) {
+  didReceiveResponse({ response, context }) {
     const responseHeder = response.http.headers;
     if (responseHeder.has("set-cookie")) {
       // hotfix
