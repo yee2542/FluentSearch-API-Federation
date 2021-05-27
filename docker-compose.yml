@@ -9,6 +9,7 @@ services:
       ORIGIN: http(|s):\/\/localhost:4000
       BFF_ENDPOINT: http://localhost:5000/graphql
       ADMISSION_ENDPOINT: http://localhost:3000/graphql
+      SPOTLIGHT_ENDPOINT: http://localhost:3000/graphql
     build:
       context: ./
       dockerfile: Dockerfile

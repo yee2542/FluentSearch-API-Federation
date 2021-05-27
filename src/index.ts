@@ -27,6 +27,10 @@ const gateway = new ApolloGateway({
       name: "admission",
       url: process.env.ADMISSION_ENDPOINT || "http://localhost:3000/graphql",
     },
+    {
+      name: "spotlight",
+      url: process.env.SPOTLIGHT_ENDPOINT || "http://localhost:4001/graphql",
+    },
   ],
   buildService: ({ url }) => {
     return new AuthenticatedDataSource({ url });
